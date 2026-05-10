@@ -1,207 +1,221 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document } from "mongoose";
 
-export type ConditionStatus = 'ok' | 'repaired' | 'notOk'
-export type CarStatus = 'active' | 'hold' | 'sold'
+export type ConditionStatus = "ok" | "repaired" | "notOk";
+export type CarStatus = "active" | "hold" | "sold";
 
 interface MediaItem {
-  url: string
-  type: 'image' | 'video'
-  caption?: string
+  url: string;
+  type: "image" | "video";
+  caption?: string;
 }
 
 interface ComponentDetail {
-  status: ConditionStatus
-  notes?: string
-  media?: MediaItem[]
+  status: ConditionStatus;
+  notes?: string;
+  media?: MediaItem[];
 }
 
 export interface ICarRatings {
-  exterior: number
-  engine: number
-  ac: number
-  electrical: number
-  steering: number
+  exterior: number;
+  engine: number;
+  ac: number;
+  electrical: number;
+  steering: number;
 }
 
 export interface ICarDocuments {
-  rcAvailability: boolean
-  insurance: 'yes' | 'no' | 'expired'
-  roadTaxPaid: boolean
-  hypothecation: boolean
+  rcAvailability: boolean;
+  insurance: "yes" | "no" | "expired";
+  roadTaxPaid: boolean;
+  hypothecation: boolean;
   other: {
-    duplicateKey: boolean
-    chassisNumber: boolean
-    partyPeshi: boolean
-    pollutionNorm: 'BSIII' | 'BSIV' | 'BSVI'
-  }
+    duplicateKey: boolean;
+    chassisNumber: boolean;
+    partyPeshi: boolean;
+    pollutionNorm: "BSIII" | "BSIV" | "BSVI";
+  };
   registrationAndFitness: {
-    manufacturingDate?: Date
-    registrationDate?: Date
-    rtoCode?: string
-    rtoName?: string
-    fitnessExpiry?: Date
-  }
+    manufacturingDate?: Date;
+    registrationDate?: Date;
+    rtoCode?: string;
+    rtoName?: string;
+    fitnessExpiry?: Date;
+  };
 }
 
 export interface IExteriorDetails {
-  apron?: ComponentDetail
-  pillar?: ComponentDetail
-  cowlTop?: ComponentDetail
-  dicky?: ComponentDetail
-  leftQuarterPanel?: ComponentDetail
-  rightQuarterPanel?: ComponentDetail
-  firewall?: ComponentDetail
-  lowerMember?: ComponentDetail
-  leftRunningBoard?: ComponentDetail
-  headlightSupports?: ComponentDetail
-  upperMember?: ComponentDetail
-  rightRunningBoard?: ComponentDetail
+  apron?: ComponentDetail;
+  pillar?: ComponentDetail;
+  cowlTop?: ComponentDetail;
+  dicky?: ComponentDetail;
+  leftQuarterPanel?: ComponentDetail;
+  rightQuarterPanel?: ComponentDetail;
+  firewall?: ComponentDetail;
+  lowerMember?: ComponentDetail;
+  leftRunningBoard?: ComponentDetail;
+  headlightSupports?: ComponentDetail;
+  upperMember?: ComponentDetail;
+  rightRunningBoard?: ComponentDetail;
 }
 
 export interface IExteriorPanels {
-  roof?: ComponentDetail
-  bonnet?: ComponentDetail
-  dickeyDoor?: ComponentDetail
-  rearBumper?: ComponentDetail
-  frontBumper?: ComponentDetail
-  leftFender?: ComponentDetail
-  rightFender?: ComponentDetail
-  rearLeftDoor?: ComponentDetail
-  frontLeftDoor?: ComponentDetail
-  rearRightDoor?: ComponentDetail
-  frontRightDoor?: ComponentDetail
+  roof?: ComponentDetail;
+  bonnet?: ComponentDetail;
+  dickeyDoor?: ComponentDetail;
+  rearBumper?: ComponentDetail;
+  frontBumper?: ComponentDetail;
+  leftFender?: ComponentDetail;
+  rightFender?: ComponentDetail;
+  rearLeftDoor?: ComponentDetail;
+  frontLeftDoor?: ComponentDetail;
+  rearRightDoor?: ComponentDetail;
+  frontRightDoor?: ComponentDetail;
 }
 
 export interface ITyres {
-  frontLeft?: ComponentDetail
-  frontRight?: ComponentDetail
-  rearLeft?: ComponentDetail
-  rearRight?: ComponentDetail
-  spare?: ComponentDetail
+  frontLeft?: ComponentDetail;
+  frontRight?: ComponentDetail;
+  rearLeft?: ComponentDetail;
+  rearRight?: ComponentDetail;
+  spare?: ComponentDetail;
 }
 
 export interface IWindshieldLights {
-  headlights?: ComponentDetail
-  tailLights?: ComponentDetail
-  windshield?: ComponentDetail
-  leftSvm?: ComponentDetail
-  rightSvm?: ComponentDetail
-  leftHeadlight?: ComponentDetail
-  rightHeadlight?: ComponentDetail
-  leftTailLight?: ComponentDetail
-  rightTailLight?: ComponentDetail
+  headlights?: ComponentDetail;
+  tailLights?: ComponentDetail;
+  windshield?: ComponentDetail;
+  leftSvm?: ComponentDetail;
+  rightSvm?: ComponentDetail;
+  leftHeadlight?: ComponentDetail;
+  rightHeadlight?: ComponentDetail;
+  leftTailLight?: ComponentDetail;
+  rightTailLight?: ComponentDetail;
 }
 
 export interface IEngineDetails {
-  exhaustSmoke?: ComponentDetail
-  engineMounting?: ComponentDetail
-  clutch?: ComponentDetail
-  engine?: ComponentDetail
-  engineSound?: ComponentDetail
-  battery?: ComponentDetail
-  coolingSystem?: ComponentDetail
-  engineOil?: ComponentDetail
-  gearShifting?: ComponentDetail
+  exhaustSmoke?: ComponentDetail;
+  engineMounting?: ComponentDetail;
+  clutch?: ComponentDetail;
+  engine?: ComponentDetail;
+  engineSound?: ComponentDetail;
+  battery?: ComponentDetail;
+  coolingSystem?: ComponentDetail;
+  engineOil?: ComponentDetail;
+  gearShifting?: ComponentDetail;
 }
 
 export interface IACDetails {
-  cooling?: ComponentDetail
-  compressor?: ComponentDetail
-  condenser?: ComponentDetail
-  blower?: ComponentDetail
-  controls?: ComponentDetail
+  cooling?: ComponentDetail;
+  compressor?: ComponentDetail;
+  condenser?: ComponentDetail;
+  blower?: ComponentDetail;
+  controls?: ComponentDetail;
 }
 
 export interface IElectricalDetails {
-  musicSystem?: ComponentDetail
-  powerWindows?: ComponentDetail
-  centralLocking?: ComponentDetail
-  horn?: ComponentDetail
-  wipers?: ComponentDetail
-  rearDefogger?: ComponentDetail
-  powerSteering?: ComponentDetail
-  instruments?: ComponentDetail
+  musicSystem?: ComponentDetail;
+  powerWindows?: ComponentDetail;
+  centralLocking?: ComponentDetail;
+  horn?: ComponentDetail;
+  wipers?: ComponentDetail;
+  rearDefogger?: ComponentDetail;
+  powerSteering?: ComponentDetail;
+  instruments?: ComponentDetail;
 }
 
 export interface ISteeringDetails {
-  steering?: ComponentDetail
-  horn?: ComponentDetail
-  alignment?: ComponentDetail
+  steering?: ComponentDetail;
+  horn?: ComponentDetail;
+  alignment?: ComponentDetail;
 }
 
 export interface IBrakesSuspension {
-  frontBrakes?: ComponentDetail
-  rearBrakes?: ComponentDetail
-  handbrake?: ComponentDetail
-  frontSuspension?: ComponentDetail
-  rearSuspension?: ComponentDetail
+  frontBrakes?: ComponentDetail;
+  rearBrakes?: ComponentDetail;
+  handbrake?: ComponentDetail;
+  frontSuspension?: ComponentDetail;
+  rearSuspension?: ComponentDetail;
 }
 
 export interface ICar extends Document {
-  _id: mongoose.Types.ObjectId
-  carId: string
-  name: string
-  make: string
-  model: string
-  year: number
-  variant?: string
-  color?: string
-  fuelType: 'petrol' | 'diesel' | 'cng' | 'electric' | 'hybrid'
-  transmission: 'manual' | 'automatic' | 'amt'
-  odometer?: number
-  price?: number
-  askingPrice?: number
-  status: CarStatus
-  description?: string
-  slug: string
-  
+  _id: mongoose.Types.ObjectId;
+  carId: string;
+  name: string;
+  make: string;
+  carModel: string;
+  year: number;
+  variant?: string;
+  color?: string;
+  fuelType: "petrol" | "diesel" | "cng" | "electric" | "hybrid";
+  transmission: "manual" | "automatic" | "amt";
+  odometer?: number;
+  price?: number;
+  askingPrice?: number;
+  status: CarStatus;
+  description?: string;
+  slug: string;
+
   location?: {
-    address?: string
-    lat?: number
-    lng?: number
-    city?: string
-    state?: string
-  }
+    address?: string;
+    lat?: number;
+    lng?: number;
+    city?: string;
+    state?: string;
+  };
 
   images: Array<{
-    url: string
-    category: 'front' | 'back' | 'left' | 'right' | 'engine' | 'interior' | 'dashboard' | 'other'
-    caption?: string
-    isPrimary?: boolean
-  }>
+    url: string;
+    category:
+      | "front"
+      | "back"
+      | "left"
+      | "right"
+      | "engine"
+      | "interior"
+      | "dashboard"
+      | "other";
+    caption?: string;
+    isPrimary?: boolean;
+  }>;
 
-  ratings: ICarRatings
-  documents: ICarDocuments
-  exteriorDetails: IExteriorDetails
-  exteriorPanels: IExteriorPanels
-  tyres: ITyres
-  windshieldLights: IWindshieldLights
-  engineDetails: IEngineDetails
-  acDetails: IACDetails
-  electricalDetails: IElectricalDetails
-  steeringDetails: ISteeringDetails
-  brakesSuspension: IBrakesSuspension
+  ratings: ICarRatings;
+  documents: ICarDocuments;
+  exteriorDetails: IExteriorDetails;
+  exteriorPanels: IExteriorPanels;
+  tyres: ITyres;
+  windshieldLights: IWindshieldLights;
+  engineDetails: IEngineDetails;
+  acDetails: IACDetails;
+  electricalDetails: IElectricalDetails;
+  steeringDetails: ISteeringDetails;
+  brakesSuspension: IBrakesSuspension;
 
-  views: number
-  inquiryCount: number
-  createdBy: mongoose.Types.ObjectId
-  updatedBy?: mongoose.Types.ObjectId
-  soldAt?: Date
-  createdAt: Date
-  updatedAt: Date
+  views: number;
+  inquiryCount: number;
+  createdBy: mongoose.Types.ObjectId;
+  updatedBy?: mongoose.Types.ObjectId;
+  soldAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const mediaItemSchema = new Schema({
-  url: { type: String, required: true },
-  type: { type: String, enum: ['image', 'video'], default: 'image' },
-  caption: String,
-}, { _id: false })
+const mediaItemSchema = new Schema(
+  {
+    url: { type: String, required: true },
+    type: { type: String, enum: ["image", "video"], default: "image" },
+    caption: String,
+  },
+  { _id: false },
+);
 
-const componentDetailSchema = new Schema({
-  status: { type: String, enum: ['ok', 'repaired', 'notOk'], required: true },
-  notes: String,
-  media: [mediaItemSchema],
-}, { _id: false })
+const componentDetailSchema = new Schema(
+  {
+    status: { type: String, enum: ["ok", "repaired", "notOk"], required: true },
+    notes: String,
+    media: [mediaItemSchema],
+  },
+  { _id: false },
+);
 
 const carSchema = new Schema<ICar>(
   {
@@ -212,16 +226,29 @@ const carSchema = new Schema<ICar>(
     },
     name: { type: String, required: true, trim: true },
     make: { type: String, required: true, trim: true },
-    model: { type: String, required: true, trim: true },
+    carModel: { type: String, required: true, trim: true },
     year: { type: Number, required: true },
     variant: String,
     color: String,
-    fuelType: { type: String, enum: ['petrol', 'diesel', 'cng', 'electric', 'hybrid'], required: true },
-    transmission: { type: String, enum: ['manual', 'automatic', 'amt'], required: true },
+    fuelType: {
+      type: String,
+      enum: ["petrol", "diesel", "cng", "electric", "hybrid"],
+      required: true,
+    },
+    transmission: {
+      type: String,
+      enum: ["manual", "automatic", "amt"],
+      required: true,
+    },
     odometer: Number,
     price: Number,
     askingPrice: Number,
-    status: { type: String, enum: ['active', 'hold', 'sold'], default: 'active', index: true },
+    status: {
+      type: String,
+      enum: ["active", "hold", "sold"],
+      default: "active",
+      index: true,
+    },
     description: { type: String, maxlength: 2000 },
     slug: { type: String, unique: true, index: true },
 
@@ -233,16 +260,27 @@ const carSchema = new Schema<ICar>(
       state: String,
     },
 
-    images: [{
-      url: { type: String, required: true },
-      category: {
-        type: String,
-        enum: ['front', 'back', 'left', 'right', 'engine', 'interior', 'dashboard', 'other'],
-        default: 'other',
+    images: [
+      {
+        url: { type: String, required: true },
+        category: {
+          type: String,
+          enum: [
+            "front",
+            "back",
+            "left",
+            "right",
+            "engine",
+            "interior",
+            "dashboard",
+            "other",
+          ],
+          default: "other",
+        },
+        caption: String,
+        isPrimary: { type: Boolean, default: false },
       },
-      caption: String,
-      isPrimary: { type: Boolean, default: false },
-    }],
+    ],
 
     ratings: {
       exterior: { type: Number, min: 0, max: 5, default: 0 },
@@ -254,14 +292,22 @@ const carSchema = new Schema<ICar>(
 
     documents: {
       rcAvailability: { type: Boolean, default: false },
-      insurance: { type: String, enum: ['yes', 'no', 'expired'], default: 'no' },
+      insurance: {
+        type: String,
+        enum: ["yes", "no", "expired"],
+        default: "no",
+      },
       roadTaxPaid: { type: Boolean, default: false },
       hypothecation: { type: Boolean, default: false },
       other: {
         duplicateKey: { type: Boolean, default: false },
         chassisNumber: { type: Boolean, default: false },
         partyPeshi: { type: Boolean, default: false },
-        pollutionNorm: { type: String, enum: ['BSIII', 'BSIV', 'BSVI'], default: 'BSIV' },
+        pollutionNorm: {
+          type: String,
+          enum: ["BSIII", "BSIV", "BSVI"],
+          default: "BSIV",
+        },
       },
       registrationAndFitness: {
         manufacturingDate: Date,
@@ -368,39 +414,40 @@ const carSchema = new Schema<ICar>(
 
     views: { type: Number, default: 0 },
     inquiryCount: { type: Number, default: 0 },
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    updatedBy: { type: Schema.Types.ObjectId, ref: "User" },
     soldAt: Date,
   },
   {
     timestamps: true,
     toJSON: { virtuals: true },
-  }
-)
+  },
+);
 
 // Auto-generate carId and slug
-carSchema.pre('save', async function (next) {
+carSchema.pre("save", async function (next) {
   if (this.isNew) {
-    const count = await mongoose.models.Car?.countDocuments() || 0
-    this.carId = `CT${String(count + 1001).padStart(5, '0')}`
-    
+    const count = (await mongoose.models.Car?.countDocuments()) || 0;
+    this.carId = `CT${String(count + 1001).padStart(5, "0")}`;
+
     const baseSlug = `${this.make}-${this.model}-${this.year}-${this.carId}`
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '')
-    this.slug = baseSlug
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    this.slug = baseSlug;
   }
 
-  if (this.status === 'sold' && !this.soldAt) {
-    this.soldAt = new Date()
+  if (this.status === "sold" && !this.soldAt) {
+    this.soldAt = new Date();
   }
 
-  next()
-})
+  next();
+});
 
 // Indexes for search
-carSchema.index({ make: 'text', model: 'text', name: 'text' })
-carSchema.index({ status: 1, createdAt: -1 })
-carSchema.index({ 'location.city': 1 })
+carSchema.index({ make: "text", model: "text", name: "text" });
+carSchema.index({ status: 1, createdAt: -1 });
+carSchema.index({ "location.city": 1 });
 
-export const Car = mongoose.models.Car || mongoose.model<ICar>('Car', carSchema)
+export const Car =
+  mongoose.models.Car || mongoose.model<ICar>("Car", carSchema);

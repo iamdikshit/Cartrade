@@ -14,7 +14,7 @@ async function getCar(slug: string) {
     await connectDB()
     const isObjectId = /^[0-9a-fA-F]{24}$/.test(slug)
     const query = isObjectId ? { _id: slug } : { $or: [{ slug }, { carId: slug }] }
-    const car = await Car.findOne(query).lean()
+    const car = await Car.findOne(query)
     return car ? JSON.parse(JSON.stringify(car)) : null
   } catch {
     return null
@@ -38,9 +38,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CarDetailPage({ params }: Props) {
   const car = await getCar(params.slug)
   if (!car) notFound()
-
-  // Increment views
-  Car.findByIdAndUpdate(car._id, { $inc: { views: 1 } }).exec().catch(() => {})
 
   return (
     <div className="min-h-screen bg-dark-50">

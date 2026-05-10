@@ -38,10 +38,10 @@ const inquirySchema = new Schema<IInquiry>(
   {
     timestamps: true,
     toJSON: {
-      transform: (_, ret) => {
-        delete ret.ipAddress
-        delete ret.userAgent
-        delete ret.__v
+      transform: (_doc: unknown, ret: Record<string, unknown>) => {
+        ret.ipAddress = undefined
+        ret.userAgent = undefined
+        ret.__v = undefined
         return ret
       },
     },
