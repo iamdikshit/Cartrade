@@ -600,7 +600,7 @@ export default function CarForm({ initialData, carId }: CarFormProps) {
               placeholder: "e.g. Hyundai i10 Magna",
             },
             { name: "make", label: "Make *", placeholder: "e.g. Hyundai" },
-            { name: "model", label: "Model *", placeholder: "e.g. i10" },
+            { name: "carModel", label: "Model *", placeholder: "e.g. i10" },
           ].map(({ name, label, placeholder }) => (
             <div key={name}>
               <label className="block text-sm font-medium text-dark-700 mb-1.5">

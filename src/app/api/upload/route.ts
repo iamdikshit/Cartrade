@@ -31,7 +31,7 @@ const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const USE_S3 = IS_PRODUCTION && !!process.env.AWS_S3_BUCKET;
 
-// ─── S3 Upload (production) ───────────────────────────────────────────────────
+// ─── S3 Upload ────────────────────────────────────────────────────────────────
 async function uploadToS3(
   buffer: Buffer,
   filename: string,
@@ -39,6 +39,7 @@ async function uploadToS3(
   folder: string,
 ): Promise<string> {
   const { S3Client, PutObjectCommand } = await import("@aws-sdk/client-s3");
+
   const client = new S3Client({
     region: process.env.AWS_REGION || "ap-south-1",
     credentials: {
@@ -46,23 +47,31 @@ async function uploadToS3(
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
     },
   });
+
   const key = `uploads/${folder}/${filename}`;
+
   await client.send(
     new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET!,
       Key: key,
       Body: buffer,
       ContentType: mimeType,
+      // Make file publicly readable
+      ACL: "public-read",
       CacheControl: "max-age=31536000",
     }),
   );
-  const cdnBase =
-    process.env.AWS_CLOUDFRONT_URL ||
-    `https://${process.env.AWS_S3_BUCKET}.s3.amazonaws.com`;
-  return `${cdnBase}/${key}`;
+
+  // If using CloudFront CDN use that URL, otherwise direct S3 URL
+  if (process.env.AWS_CLOUDFRONT_URL) {
+    return `${process.env.AWS_CLOUDFRONT_URL}/${key}`;
+  }
+
+  // Direct S3 public URL format
+  return `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION || "ap-south-1"}.amazonaws.com/${key}`;
 }
 
-// ─── Local Upload (development) ───────────────────────────────────────────────
+// ─── Local Upload ─────────────────────────────────────────────────────────────
 async function uploadToLocal(
   buffer: Buffer,
   filename: string,
@@ -75,24 +84,19 @@ async function uploadToLocal(
   return `/uploads/${carId}/${category}/${filename}`;
 }
 
-// ─── Magic byte check (relaxed — allows more formats) ─────────────────────────
+// ─── Magic byte validation ────────────────────────────────────────────────────
 function isLikelyImage(buffer: Buffer, mimeType: string): boolean {
-  // For HEIC/HEIF and other modern formats, trust the MIME type from the browser
-  // Only do magic byte check for common formats
   if (buffer.length < 4) return false;
   const jpg = buffer[0] === 0xff && buffer[1] === 0xd8;
   const png = buffer[0] === 0x89 && buffer[1] === 0x50;
   const webp = buffer.length > 11 && buffer[8] === 0x57 && buffer[9] === 0x45;
   const gif = buffer[0] === 0x47 && buffer[1] === 0x49;
-  // For heic/heif/avif — no simple magic bytes, trust MIME
-  const isTrustedModernFormat = [
-    "image/heic",
-    "image/heif",
-    "image/avif",
-  ].includes(mimeType);
-  return jpg || png || webp || gif || isTrustedModernFormat;
+  // Trust MIME type for modern formats like HEIC/HEIF/AVIF
+  const modern = ["image/heic", "image/heif", "image/avif"].includes(mimeType);
+  return jpg || png || webp || gif || modern;
 }
 
+// ─── Main handler ─────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
   const clientId = getClientIdentifier(request);
   const limitResult = uploadRateLimiter(clientId);
@@ -154,7 +158,6 @@ export async function POST(request: NextRequest) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-      // Validate image buffer (relaxed for modern formats)
       if (isImage && !isLikelyImage(buffer, mimeType)) {
         return NextResponse.json(
           { error: `File "${file.name}" appears to be invalid` },
@@ -162,7 +165,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Determine extension
+      // Determine file extension
       let ext = extname(file.name).toLowerCase();
       if (!ext) {
         const extMap: Record<string, string> = {
