@@ -12,7 +12,7 @@ export interface JWTPayload {
 
 export function signAccessToken(payload: JWTPayload): string {
   return jwt.sign(payload, JWT_SECRET, {
-    expiresIn: '15m',
+    expiresIn: '24h',
     issuer: 'car-trade',
     audience: 'car-trade-api',
   })
@@ -20,7 +20,7 @@ export function signAccessToken(payload: JWTPayload): string {
 
 export function signRefreshToken(payload: Pick<JWTPayload, 'userId'>): string {
   return jwt.sign(payload, JWT_REFRESH_SECRET, {
-    expiresIn: '7d',
+    expiresIn: '30d',
     issuer: 'car-trade',
     audience: 'car-trade-refresh',
   })
