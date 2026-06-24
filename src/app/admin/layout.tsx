@@ -82,7 +82,7 @@ function AdminSidebar({
             </div>
             <div>
               <span className="font-display text-lg font-800 text-white">
-                Car<span style={{ color: "#f97316" }}>Trade</span>
+                Cars noida <span style={{ color: "#f97316" }}>99</span>
               </span>
               <p className="text-dark-500 text-xs -mt-0.5">Admin Portal</p>
             </div>

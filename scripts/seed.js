@@ -41,7 +41,7 @@ loadEnv();
  * Or: npm run seed
  */
 
-console.log(process.env.MONGODB_URI);
+// console.log(process.env.MONGODB_URI);
 const MONGODB_URI = process.env.MONGODB_URI;
 const ROOT_EMAIL = process.env.ROOT_EMAIL || "root@cartrade.com";
 const ROOT_PASSWORD = process.env.ROOT_PASSWORD || "Admin@123456";

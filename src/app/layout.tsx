@@ -4,8 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "CarTrade — Buy & Sell Cars",
-    template: "%s | CarTrade",
+    default: "Cars Noida 99 — Buy & Sell Cars",
+    template: "%s | Cars Noida 99",
   },
   description:
     "Find your perfect car. Browse inspected vehicles with detailed auction reports, full condition history, and transparent pricing.",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     "car inspection",
     "pre-owned vehicles",
   ],
-  authors: [{ name: "CarTrade" }],
-  creator: "CarTrade",
+  authors: [{ name: "Cars Noida 99" }],
+  creator: "Cars Noida 99",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   ),
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: process.env.NEXT_PUBLIC_APP_URL,
-    siteName: "CarTrade",
-    title: "CarTrade — Buy & Sell Cars",
+    siteName: "Cars Noida 99",
+    title: "Cars Noida 99 — Buy & Sell Cars",
     description: "Find your perfect car with detailed inspection reports",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CarTrade",
+    title: "Cars Noida 99 — Buy & Sell Cars",
     description: "Buy & Sell Cars with confidence",
   },
   robots: {

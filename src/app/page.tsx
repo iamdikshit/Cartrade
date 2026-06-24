@@ -252,7 +252,7 @@ export default async function HomePage() {
               {
                 icon: <Mail className="w-5 h-5" />,
                 label: "Email",
-                value: "info@cartrade.com",
+                value: "info@carsnoida00.com",
               },
               {
                 icon: <MapPin className="w-5 h-5" />,
@@ -280,7 +280,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-dark-500 text-sm">
-              © {new Date().getFullYear()} CarTrade. All rights reserved.
+              © {new Date().getFullYear()} Cars Noida 99. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <Link
