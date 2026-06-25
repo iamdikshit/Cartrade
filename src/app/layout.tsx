@@ -71,7 +71,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased overflow-x-hidden">
         {children}
         <Toaster
           position="top-right"

@@ -9,7 +9,6 @@ interface Car {
   carId: string
   name: string
   make: string
-  model: string
   year: number
   color?: string
   fuelType: string
@@ -24,14 +23,9 @@ interface Car {
   views?: number
 }
 
-interface CarCardProps {
-  car: Car
-  variant?: 'default' | 'compact'
-}
-
-export default function CarCard({ car, variant = 'default' }: CarCardProps) {
+export default function CarCard({ car }: { car: Car }) {
   const primaryImage = getPrimaryImage(car.images)
-  const avgRating = car.ratings 
+  const avgRating = car.ratings
     ? Object.values(car.ratings).reduce((a, b) => a + b, 0) / 5
     : 0
   const statusConfig = getStatusConfig(car.status)
@@ -40,29 +34,22 @@ export default function CarCard({ car, variant = 'default' }: CarCardProps) {
     e.preventDefault()
     const url = `${window.location.origin}/cars/${car.slug}`
     if (navigator.share) {
-      await navigator.share({
-        title: `${car.name} - CarTrade`,
-        text: `Check out this ${car.year} ${car.name} for ${formatPrice(car.askingPrice)}`,
-        url,
-      })
+      await navigator.share({ title: `${car.name} - Cars Noida 99`, text: `Check out this ${car.year} ${car.name}`, url })
     } else {
       await navigator.clipboard.writeText(url)
-      alert('Link copied!')
     }
   }
 
   return (
     <Link href={`/cars/${car.slug}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden border border-dark-100 card-hover shadow-sm">
+      <div className="bg-white rounded-2xl overflow-hidden border border-dark-100 card-hover shadow-sm h-full flex flex-col">
         {/* Image */}
-        <div className="relative h-48 sm:h-52 bg-dark-100 overflow-hidden">
+        <div className="relative h-44 sm:h-48 bg-dark-100 overflow-hidden flex-shrink-0">
           {primaryImage ? (
             <Image
-              src={primaryImage}
-              alt={car.name}
-              fill
+              src={primaryImage} alt={car.name} fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-100 to-dark-200">
@@ -70,82 +57,70 @@ export default function CarCard({ car, variant = 'default' }: CarCardProps) {
             </div>
           )}
 
-          {/* Status badge */}
-          <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${statusConfig.className}`}>
+          <div className={`absolute top-2 left-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${statusConfig.className}`}>
             {statusConfig.label}
           </div>
 
-          {/* Share button */}
-          <button
-            onClick={handleShare}
-            className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-600 hover:text-brand-600 shadow-sm opacity-0 group-hover:opacity-100 transition-all"
-            aria-label="Share car"
-          >
-            <Share2 className="w-4 h-4" />
+          <button onClick={handleShare}
+            className="absolute top-2 right-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-600 hover:text-brand-600 shadow-sm opacity-0 group-hover:opacity-100 transition-all"
+            aria-label="Share">
+            <Share2 className="w-3.5 h-3.5" />
           </button>
 
-          {/* Car ID */}
-          <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-lg">
-            <span className="text-white text-xs font-mono font-medium">{car.carId}</span>
+          <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-lg">
+            <span className="text-white text-xs font-mono">{car.carId}</span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          {/* Title */}
-          <h3 className="font-display font-700 text-dark-900 text-lg leading-tight mb-1 group-hover:text-brand-600 transition-colors line-clamp-1">
+        <div className="p-3 sm:p-4 flex flex-col flex-1">
+          <h3 className="font-display font-700 text-dark-900 text-base sm:text-lg leading-tight mb-1 group-hover:text-brand-600 transition-colors line-clamp-1">
             {car.year} {car.name}
           </h3>
 
-          {/* Rating */}
           {avgRating > 0 && (
             <div className="flex items-center gap-1 mb-2">
-              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span className="text-sm font-semibold text-dark-700">{avgRating.toFixed(1)}</span>
-              <span className="text-xs text-dark-400">overall rating</span>
+              <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+              <span className="text-xs font-semibold text-dark-700">{avgRating.toFixed(1)}</span>
+              <span className="text-xs text-dark-400">rating</span>
             </div>
           )}
 
-          {/* Specs */}
-          <div className="grid grid-cols-3 gap-2 mb-3">
+          {/* Specs — 3 col grid */}
+          <div className="grid grid-cols-3 gap-1.5 mb-2">
             <div className="flex items-center gap-1 text-dark-500">
-              <Fuel className="w-3.5 h-3.5 flex-shrink-0" />
+              <Fuel className="w-3 h-3 flex-shrink-0" />
               <span className="text-xs capitalize truncate">{car.fuelType}</span>
             </div>
             <div className="flex items-center gap-1 text-dark-500">
-              <Settings className="w-3.5 h-3.5 flex-shrink-0" />
+              <Settings className="w-3 h-3 flex-shrink-0" />
               <span className="text-xs capitalize truncate">{car.transmission}</span>
             </div>
             {car.odometer !== undefined && (
               <div className="flex items-center gap-1 text-dark-500">
-                <Gauge className="w-3.5 h-3.5 flex-shrink-0" />
+                <Gauge className="w-3 h-3 flex-shrink-0" />
                 <span className="text-xs truncate">{(car.odometer / 1000).toFixed(0)}k km</span>
               </div>
             )}
           </div>
 
-          {/* Location */}
           {car.location?.city && (
-            <div className="flex items-center gap-1 text-dark-400 mb-3">
-              <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+            <div className="flex items-center gap-1 text-dark-400 mb-2">
+              <MapPin className="w-3 h-3 flex-shrink-0" />
               <span className="text-xs truncate">{car.location.city}</span>
             </div>
           )}
 
-          {/* Price */}
-          <div className="flex items-center justify-between pt-3 border-t border-dark-100">
-            <div>
-              {car.askingPrice ? (
-                <p className="font-display font-700 text-xl text-brand-600">
-                  {formatPrice(car.askingPrice)}
-                </p>
-              ) : (
-                <p className="text-dark-400 text-sm">Price on request</p>
-              )}
-            </div>
-            {car.views !== undefined && (
+          {/* Price row */}
+          <div className="flex items-center justify-between pt-2 border-t border-dark-100 mt-auto">
+            {car.askingPrice ? (
+              <p className="font-display font-700 text-lg text-brand-600">{formatPrice(car.askingPrice)}</p>
+            ) : (
+              <p className="text-dark-400 text-sm">Price on request</p>
+            )}
+            {(car.views ?? 0) > 0 && (
               <div className="flex items-center gap-1 text-dark-400">
-                <Eye className="w-3.5 h-3.5" />
+                <Eye className="w-3 h-3" />
                 <span className="text-xs">{car.views}</span>
               </div>
             )}
