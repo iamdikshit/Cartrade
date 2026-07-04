@@ -17,7 +17,7 @@ import { Car } from "@/models/Car";
 import CarCard from "@/components/public/CarCard";
 
 export const metadata: Metadata = {
-  title: "CarTrade — Buy & Sell Cars with Confidence",
+  title: "Cars Noida 99 — Buy & Sell Cars with Confidence",
   description:
     "Find inspected, verified used cars with detailed auction reports. Transparent pricing, full condition history.",
 };
@@ -46,44 +46,43 @@ export default async function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-950">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: `url('https://cdn.pixabay.com/photo/2016/11/22/23/55/car-1851299_1280.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Light overlay */}
+        <div className="absolute inset-0 bg-black/70" />
 
         {/* Gradient orbs */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-brand-600 rounded-full filter blur-3xl opacity-20 animate-pulse-slow" />
+        {/* <div className="absolute top-20 right-20 w-96 h-96 bg-brand-300 rounded-full filter blur-3xl opacity-30 animate-pulse-slow" />
         <div
-          className="absolute bottom-20 left-20 w-80 h-80 bg-brand-400 rounded-full filter blur-3xl opacity-10 animate-pulse-slow"
+          className="absolute bottom-20 left-20 w-80 h-80 bg-brand-200 rounded-full filter blur-3xl opacity-25 animate-pulse-slow"
           style={{ animationDelay: "1s" }}
-        />
+        /> */}
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <div className="inline-flex items-center gap-2 bg-brand-600/20 border border-brand-600/30 rounded-full px-4 py-2 mb-8 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse" />
-            <span className="text-brand-300 text-sm font-medium">
+          <div className="inline-flex items-center gap-2 bg-brand-600/10 border border-brand-600/20 rounded-full px-4 py-2 mb-8 animate-fade-in">
+            <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse" />
+            <span className="text-brand-700 text-sm font-medium">
               India's most transparent car marketplace
             </span>
           </div>
 
           <h1
-            className="font-display text-5xl sm:text-6xl lg:text-7xl font-800 text-white mb-6 animate-slide-up"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-800 text-dark-200 mb-6 animate-slide-up"
             style={{ lineHeight: "1.1" }}
           >
-            Buy Cars With
+            Drive Your Dream
             <br />
-            <span className="text-gradient">Full Confidence</span>
+            <span className="text-gradient">Car</span>
           </h1>
 
           <p
-            className="text-dark-300 text-lg sm:text-xl max-w-2xl mx-auto mb-10 animate-slide-up"
+            className="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-10 animate-slide-up"
             style={{ animationDelay: "0.1s" }}
           >
             Every car comes with a detailed inspection report covering 80+
@@ -103,7 +102,7 @@ export default async function HomePage() {
             </Link>
             <Link
               href="/#how-it-works"
-              className="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white/20 transition-colors border border-white/20"
+              className="inline-flex items-center gap-2 bg-white text-dark-800 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-dark-50 transition-colors border border-dark-200 shadow-sm"
             >
               How It Works
             </Link>
@@ -120,10 +119,10 @@ export default async function HomePage() {
               { value: "24h", label: "Support" },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
-                <p className="font-display text-3xl font-800 text-white">
+                <p className="font-display text-3xl font-800 text-dark-200">
                   {value}
                 </p>
-                <p className="text-dark-400 text-sm mt-1">{label}</p>
+                <p className="text-dark-500 text-sm mt-1">{label}</p>
               </div>
             ))}
           </div>
@@ -174,7 +173,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="font-display text-4xl font-700 text-dark-900 mb-4">
-              Why Choose CarTrade?
+              Why Choose Cars Noida 99?
             </h2>
             <p className="text-dark-500 text-lg max-w-2xl mx-auto">
               We inspect every vehicle thoroughly and provide complete

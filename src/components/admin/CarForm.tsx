@@ -573,6 +573,8 @@ export default function CarForm({ initialData, carId }: CarFormProps) {
       toast.success(carId ? "Car updated!" : "Car created successfully!");
 
       const targetId = carId || result.car?.id;
+      console.log("Redirecting to car ID:", targetId);
+      setSaving(false);
       if (targetId) {
         router.push(`/admin/cars/${targetId}`);
       } else {
